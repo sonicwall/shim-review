@@ -23,22 +23,22 @@ Here's the template:
 *******************************************************************************
 ### What organization or people are asking to have this signed?
 *******************************************************************************
-[your text here]
+SonicWall Inc.
 
 *******************************************************************************
 ### What product or service is this for?
 *******************************************************************************
-[your text here]
+SonicWall security appliances and virtual products.
 
 *******************************************************************************
 ### What's the justification that this really does need to be signed for the whole world to be able to boot it?
 *******************************************************************************
-[your text here]
+Our products are expected to run with UEFI Secure Boot enabled and in various hardware and virtual environments, some of which do not support installing SonicWall Secure Boot keys.
 
 *******************************************************************************
 ### Why are you unable to reuse shim from another distro that is already signed?
 *******************************************************************************
-[your text here]
+Our products including the Linux based Opererating Systems are built from source. The base distro does not provide a signed shim.
 
 *******************************************************************************
 ### Who is the primary contact for security updates, etc.?
@@ -47,10 +47,10 @@ The security contacts need to be verified before the shim can be accepted. For s
 An authorized reviewer will initiate contact verification by sending each security contact a PGP-encrypted email containing random words.
 You will be asked to post the contents of these mails in your `shim-review` issue to prove ownership of the email addresses and PGP keys.
 *******************************************************************************
-- Name:
-- Position:
-- Email address:
-- PGP key fingerprint:
+- Name: Shane OHanlon
+- Position: Engineering Manager
+- Email address: sohanlon@sonicwall.com 
+- PGP key fingerprint: F3B2 8CB6 5FCB 75F8 4197 90C6 2977 8520 22EC 2859
 
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
@@ -59,10 +59,10 @@ well known in the Linux community.)
 *******************************************************************************
 ### Who is the secondary contact for security updates, etc.?
 *******************************************************************************
-- Name:
-- Position:
-- Email address:
-- PGP key fingerprint:
+- Name: Jie Ma
+- Position: Software Dev Engineer
+- Email address: jma@sonicwall.com
+- PGP key fingerprint: 6700 AC08 4226 763B 6D45 DF33 1C01 EA8C 2132 BB2B
 
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
@@ -75,22 +75,22 @@ Please create your shim binaries starting with the 15.7 shim release tar file: h
 This matches https://github.com/rhboot/shim/releases/tag/15.7 and contains the appropriate gnu-efi source.
 
 *******************************************************************************
-[your text here]
+Yes.
 
 *******************************************************************************
 ### URL for a repo that contains the exact code which was built to get this binary:
 *******************************************************************************
-[your url here]
+https://github.com/rhboot/shim/releases/download/15.7/shim-15.7.tar.bz2
 
 *******************************************************************************
 ### What patches are being applied and why:
 *******************************************************************************
-[your text here]
+- [work/patches/0001-Enable-the-NX-compatibility-flag-by-default.patch](./work/patches/0001-Enable-the-NX-compatibility-flag-by-default.patch). ([rhboot/shim#530](https://github.com/rhboot/shim/pull/530).)
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader what exact implementation of Secureboot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
 *******************************************************************************
-[your text here]
+Upstream GRUB2 shim_lock is used.
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader and your previously released shim booted a version of GRUB2 affected by any of the CVEs in the July 2020, the March 2021, the June 7th 2022, the November 15th 2022, or 3rd of October 2023 GRUB2 CVE list, have fixes for all these CVEs been applied?
@@ -134,19 +134,19 @@ This matches https://github.com/rhboot/shim/releases/tag/15.7 and contains the a
   * CVE-2023-4693
   * CVE-2023-4692
 *******************************************************************************
-[your text here]
+Yes.
 
 *******************************************************************************
 ### If these fixes have been applied, is the upstream global SBAT generation in your GRUB2 binary set to 4?
 The entry should look similar to: `grub,4,Free Software Foundation,grub,GRUB_UPSTREAM_VERSION,https://www.gnu.org/software/grub/`
 *******************************************************************************
-[your text here]
+Yes.
 
 *******************************************************************************
 ### Were old shims hashes provided to Microsoft for verification and to be added to future DBX updates?
 ### Does your new chain of trust disallow booting old GRUB2 builds affected by the CVEs?
 *******************************************************************************
-[your text here]
+This is our first shim submission. Yes, it disallows booting old GRUB2 builds affected by the CVEs.
 
 *******************************************************************************
 ### If your boot chain of trust includes a Linux kernel:
@@ -154,62 +154,62 @@ The entry should look similar to: `grub,4,Free Software Foundation,grub,GRUB_UPS
 ### Is upstream commit [75b0cea7bf307f362057cc778efe89af4c615354 "ACPI: configfs: Disallow loading ACPI tables when locked down"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=75b0cea7bf307f362057cc778efe89af4c615354) applied?
 ### Is upstream commit [eadb2f47a3ced5c64b23b90fd2a3463f63726066 "lockdown: also lock down previous kgdb use"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=eadb2f47a3ced5c64b23b90fd2a3463f63726066) applied?
 *******************************************************************************
-[your text here]
+Yes, first one 1957a85b00 is applied. The last two are not applied, but CONFIG_ACPI_CONFIGFS and CONFIG_KGDB are disabled.
 
 *******************************************************************************
 ### Do you build your signed kernel with additional local patches? What do they do?
 *******************************************************************************
-[your text here]
+No.
 
 *******************************************************************************
 ### Do you use an ephemeral key for signing kernel modules?
 ### If not, please describe how you ensure that one kernel build does not load modules built for another kernel.
 *******************************************************************************
-[your text here]
+Yes.
 
 *******************************************************************************
 ### If you use vendor_db functionality of providing multiple certificates and/or hashes please briefly describe your certificate setup.
 ### If there are allow-listed hashes please provide exact binaries for which hashes are created via file sharing service, available in public with anonymous access for verification.
 *******************************************************************************
-[your text here]
+Vendor_db functionality is not used. There are no allow-listed hashes.
 
 *******************************************************************************
 ### If you are re-using a previously used (CA) certificate, you will need to add the hashes of the previous GRUB2 binaries exposed to the CVEs to vendor_dbx in shim in order to prevent GRUB2 from being able to chainload those older GRUB2 binaries. If you are changing to a new (CA) certificate, this does not apply.
 ### Please describe your strategy.
 *******************************************************************************
-[your text here]
+This is our first shim submission. So it's a new certificate.
 
 *******************************************************************************
 ### What OS and toolchain must we use to reproduce this build?  Include where to find it, etc.  We're going to try to reproduce your build as closely as possible to verify that it's really a build of the source tree you tell us it is, so these need to be fairly thorough. At the very least include the specific versions of gcc, binutils, and gnu-efi which were used, and where to find those binaries.
 ### If the shim binaries can't be reproduced using the provided Dockerfile, please explain why that's the case and what the differences would be.
 *******************************************************************************
-[your text here]
+Please see [Dockerfile](./Dockerfile). Please run `docker build .` to reproduce the build.
 
 *******************************************************************************
 ### Which files in this repo are the logs for your build?
 This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
 *******************************************************************************
-[your text here]
+Please see [artifacts/build.log](./artifacts/build.log).
 
 *******************************************************************************
 ### What changes were made since your SHIM was last signed?
 *******************************************************************************
-[your text here]
+This is our first shim submission.
 
 *******************************************************************************
 ### What is the SHA256 hash of your final SHIM binary?
 *******************************************************************************
-[your text here]
+Please see [artifacts/sha256sum.txt](./artifacts/sha256sum.txt).
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your SHIM?
 *******************************************************************************
-[your text here]
+Keys are stored in an hardware token with restricted physical access.
 
 *******************************************************************************
 ### Do you use EV certificates as embedded certificates in the SHIM?
 *******************************************************************************
-[your text here]
+No.
 
 *******************************************************************************
 ### Do you add a vendor-specific SBAT entry to the SBAT section in each binary that supports SBAT metadata ( GRUB2, fwupd, fwupdate, shim + all child shim binaries )?
@@ -219,43 +219,56 @@ If you are using a downstream implementation of GRUB2 (e.g. from Fedora or Debia
 preserve the SBAT entry from those distributions and only append your own.
 More information on how SBAT works can be found [here](https://github.com/rhboot/shim/blob/main/SBAT.md).
 *******************************************************************************
-[your text here]
+SHIM,
+
+Please see [work/sbat.csv](./work/sbat.csv)
+
+GRUB2,
+```
+sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+grub,4,Free Software Foundation,grub,2.04,https://www.gnu.org/software/grub/
+grub.sonicwall,1,SonicWall,grub-efi,2.04-r0,https://sonicwall.com
+```
 
 *******************************************************************************
 ### Which modules are built into your signed GRUB2 image?
 *******************************************************************************
-[your text here]
+```
+all_video at_keyboard configfile echo efi_gop efi_uga efivar halt linux memdisk normal reboot regexp serial shim_lock sleep tar terminal test true video_bochs video_cirrus
+```
 
 *******************************************************************************
 ### What is the origin and full version number of your bootloader (GRUB2 or other)?
 *******************************************************************************
-[your text here]
+Openembedded [grub-efi 2.04-r0](https://git.openembedded.org/openembedded-core/tree/meta/recipes-bsp/grub/grub2.inc?h=dunfell), with the following patch,
+- [Grub-get-and-set-efi-variables.patch](https://github.com/jiazhang0/meta-secure-core/blob/master/meta-efi-secure-boot/recipes-bsp/grub/grub-efi/Grub-get-and-set-efi-variables.patch)
 
 *******************************************************************************
 ### If your SHIM launches any other components, please provide further details on what is launched.
 *******************************************************************************
-[your text here]
+Our SHIM does not launch any other components.
 
 *******************************************************************************
 ### If your GRUB2 launches any other binaries that are not the Linux kernel in SecureBoot mode, please provide further details on what is launched and how it enforces Secureboot lockdown.
 *******************************************************************************
-[your text here]
+Our GRUB2 does not launch any other binaries except the Linux kernel.
 
 *******************************************************************************
 ### How do the launched components prevent execution of unauthenticated code?
 *******************************************************************************
-[your text here]
+On the well known SHIM, GRUB2 and Linux kernel chain of trust, the signature verification mechanisms provided by the upstreams are used to prevent execution of unauthenticated code. Apart from that, the GRUB2 insmod command is disabled to prevent loading external modules. GRUB2 only loads Linux kernel binary from its memdisk. In Linux kernel, set CONFIG_MODULE_SIG_FORCE=y to enforce kernel module signature verification. We'll research and follow the NX support progress in GRUB2 and Linux kernel.
 
 *******************************************************************************
 ### Does your SHIM load any loaders that support loading unsigned kernels (e.g. GRUB2)?
 *******************************************************************************
-[your text here]
+No, our SHIM does not load any loaders that support loading unsigned kernels.
+
 *******************************************************************************
 ### What kernel are you using? Which patches does it includes to enforce Secure Boot?
 *******************************************************************************
-[your text here]
+Openembedded [linux-yocto 5.4](https://git.yoctoproject.org/linux-yocto/tree/?h=v5.4/standard/base) kernel source and [yocto-kernel-cache](https://git.yoctoproject.org/yocto-kernel-cache/tree/?h=yocto-5.4) kernel config is used. No specific patches are included. Standard mechanisms provided by the upstream are used to enforce Secure Boot.
 
 *******************************************************************************
 ### Add any additional information you think we may need to validate this shim.
 *******************************************************************************
-[your text here]
+None.
