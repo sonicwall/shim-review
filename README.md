@@ -11,8 +11,8 @@ This repo is for review of requests for signing shim.  To create a request for r
 - file an issue at https://github.com/rhboot/shim-review/issues with a link to your tag
 - approval is ready when the "accepted" label is added to your issue
 
-Note that we really only have experience with using GRUB2 on Linux, so asking
-us to endorse anything else for signing is going to require some convincing on
+Note that we really only have experience with using GRUB2 or systemd-boot on Linux, so
+asking us to endorse anything else for signing is going to require some convincing on
 your part.
 
 Check the docs directory in this repo for guidance on submission and
@@ -69,10 +69,10 @@ like keyserver.ubuntu.com, and preferably have signatures that are reasonably
 well known in the Linux community.)
 
 *******************************************************************************
-### Were these binaries created from the 15.7 shim release tar?
-Please create your shim binaries starting with the 15.7 shim release tar file: https://github.com/rhboot/shim/releases/download/15.7/shim-15.7.tar.bz2
+### Were these binaries created from the 15.8 shim release tar?
+Please create your shim binaries starting with the 15.8 shim release tar file: https://github.com/rhboot/shim/releases/download/15.8/shim-15.8.tar.bz2
 
-This matches https://github.com/rhboot/shim/releases/tag/15.7 and contains the appropriate gnu-efi source.
+This matches https://github.com/rhboot/shim/releases/tag/15.8 and contains the appropriate gnu-efi source.
 
 *******************************************************************************
 Yes.
@@ -86,6 +86,13 @@ https://github.com/rhboot/shim/releases/download/15.7/shim-15.7.tar.bz2
 ### What patches are being applied and why:
 *******************************************************************************
 - [work/patches/0001-Enable-the-NX-compatibility-flag-by-default.patch](./work/patches/0001-Enable-the-NX-compatibility-flag-by-default.patch). ([rhboot/shim#530](https://github.com/rhboot/shim/pull/530).)
+
+*******************************************************************************
+### Do you have the NX bit set in your shim? If so, is your entire boot stack NX-compatible and what testing have you done to ensure such compatibility?
+
+See https://techcommunity.microsoft.com/t5/hardware-dev-center/nx-exception-for-shim-community/ba-p/3976522 for more details on the signing of shim without NX bit.
+*******************************************************************************
+[your text here]
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader what exact implementation of Secureboot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
@@ -137,7 +144,7 @@ Upstream GRUB2 shim_lock is used.
 Yes.
 
 *******************************************************************************
-### If these fixes have been applied, is the upstream global SBAT generation in your GRUB2 binary set to 4?
+### If shim is loading GRUB2 bootloader, and if these fixes have been applied, is the upstream global SBAT generation in your GRUB2 binary set to 4?
 The entry should look similar to: `grub,4,Free Software Foundation,grub,GRUB_UPSTREAM_VERSION,https://www.gnu.org/software/grub/`
 *******************************************************************************
 Yes.
@@ -192,7 +199,8 @@ This should include logs for creating the buildroots, applying patches, doing th
 Please see [artifacts/build.log](./artifacts/build.log).
 
 *******************************************************************************
-### What changes were made since your SHIM was last signed?
+### What changes were made in the distor's secure boot chain since your SHIM was last signed?
+For example, signing new kernel's variants, UKI, systemd-boot, new certs, new CA, etc..
 *******************************************************************************
 This is our first shim submission.
 
@@ -212,12 +220,18 @@ Keys are stored in an hardware token with restricted physical access.
 No.
 
 *******************************************************************************
-### Do you add a vendor-specific SBAT entry to the SBAT section in each binary that supports SBAT metadata ( GRUB2, fwupd, fwupdate, shim + all child shim binaries )?
-### Please provide exact SBAT entries for all SBAT binaries you are booting or planning to boot directly through shim.
+### Do you add a vendor-specific SBAT entry to the SBAT section in each binary that supports SBAT metadata ( GRUB2, fwupd, fwupdate, systemd-boot, systemd-stub, shim + all child shim binaries )?
+### Please provide exact SBAT entries for all shim binaries as well as all SBAT binaries that shim will directly boot.
 ### Where your code is only slightly modified from an upstream vendor's, please also preserve their SBAT entries to simplify revocation.
-If you are using a downstream implementation of GRUB2 (e.g. from Fedora or Debian), please
-preserve the SBAT entry from those distributions and only append your own.
-More information on how SBAT works can be found [here](https://github.com/rhboot/shim/blob/main/SBAT.md).
+If you are using a downstream implementation of GRUB2 or systemd-boot (e.g.
+from Fedora or Debian), please preserve the SBAT entry from those distributions
+and only append your own. More information on how SBAT works can be found
+[here](https://github.com/rhboot/shim/blob/main/SBAT.md).
+*******************************************************************************
+[your text here]
+
+*******************************************************************************
+### If shim is loading GRUB2 bootloader, which modules are built into your signed GRUB2 image?
 *******************************************************************************
 SHIM,
 
@@ -231,14 +245,14 @@ grub.sonicwall,1,SonicWall,grub-efi,2.04-r0,https://sonicwall.com
 ```
 
 *******************************************************************************
-### Which modules are built into your signed GRUB2 image?
+### If you are using systemd-boot on arm64 or riscv, is the fix for [unverified Devicetree Blob loading](https://github.com/systemd/systemd/security/advisories/GHSA-6m6p-rjcq-334c) included?
 *******************************************************************************
 ```
 all_video at_keyboard configfile echo efi_gop efi_uga efivar halt linux memdisk normal reboot regexp serial shim_lock sleep tar terminal test true video_bochs video_cirrus
 ```
 
 *******************************************************************************
-### What is the origin and full version number of your bootloader (GRUB2 or other)?
+### What is the origin and full version number of your bootloader (GRUB2 or systemd-boot or other)?
 *******************************************************************************
 Openembedded [grub-efi 2.04-r0](https://git.openembedded.org/openembedded-core/tree/meta/recipes-bsp/grub/grub2.inc?h=dunfell), with the following patch,
 - [Grub-get-and-set-efi-variables.patch](https://github.com/jiazhang0/meta-secure-core/blob/master/meta-efi-secure-boot/recipes-bsp/grub/grub-efi/Grub-get-and-set-efi-variables.patch)
@@ -249,7 +263,7 @@ Openembedded [grub-efi 2.04-r0](https://git.openembedded.org/openembedded-core/t
 Our SHIM does not launch any other components.
 
 *******************************************************************************
-### If your GRUB2 launches any other binaries that are not the Linux kernel in SecureBoot mode, please provide further details on what is launched and how it enforces Secureboot lockdown.
+### If your GRUB2 or systemd-boot launches any other binaries that are not the Linux kernel in SecureBoot mode, please provide further details on what is launched and how it enforces Secureboot lockdown.
 *******************************************************************************
 Our GRUB2 does not launch any other binaries except the Linux kernel.
 
