@@ -80,19 +80,19 @@ Yes.
 *******************************************************************************
 ### URL for a repo that contains the exact code which was built to get this binary:
 *******************************************************************************
-https://github.com/rhboot/shim/releases/download/15.7/shim-15.7.tar.bz2
+https://github.com/rhboot/shim/releases/download/15.8/shim-15.8.tar.bz2
 
 *******************************************************************************
 ### What patches are being applied and why:
 *******************************************************************************
-- [work/patches/0001-Enable-the-NX-compatibility-flag-by-default.patch](./work/patches/0001-Enable-the-NX-compatibility-flag-by-default.patch). ([rhboot/shim#530](https://github.com/rhboot/shim/pull/530).)
+No patches are applied.
 
 *******************************************************************************
 ### Do you have the NX bit set in your shim? If so, is your entire boot stack NX-compatible and what testing have you done to ensure such compatibility?
 
 See https://techcommunity.microsoft.com/t5/hardware-dev-center/nx-exception-for-shim-community/ba-p/3976522 for more details on the signing of shim without NX bit.
 *******************************************************************************
-[your text here]
+The NX bit is not set.
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader what exact implementation of Secureboot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
@@ -228,11 +228,6 @@ from Fedora or Debian), please preserve the SBAT entry from those distributions
 and only append your own. More information on how SBAT works can be found
 [here](https://github.com/rhboot/shim/blob/main/SBAT.md).
 *******************************************************************************
-[your text here]
-
-*******************************************************************************
-### If shim is loading GRUB2 bootloader, which modules are built into your signed GRUB2 image?
-*******************************************************************************
 SHIM,
 
 Please see [work/sbat.csv](./work/sbat.csv)
@@ -245,11 +240,16 @@ grub.sonicwall,1,SonicWall,grub-efi,2.04-r0,https://sonicwall.com
 ```
 
 *******************************************************************************
-### If you are using systemd-boot on arm64 or riscv, is the fix for [unverified Devicetree Blob loading](https://github.com/systemd/systemd/security/advisories/GHSA-6m6p-rjcq-334c) included?
+### If shim is loading GRUB2 bootloader, which modules are built into your signed GRUB2 image?
 *******************************************************************************
 ```
 all_video at_keyboard configfile echo efi_gop efi_uga efivar halt linux memdisk normal reboot regexp serial shim_lock sleep tar terminal test true video_bochs video_cirrus
 ```
+
+*******************************************************************************
+### If you are using systemd-boot on arm64 or riscv, is the fix for [unverified Devicetree Blob loading](https://github.com/systemd/systemd/security/advisories/GHSA-6m6p-rjcq-334c) included?
+*******************************************************************************
+Systemd-boot is not used.
 
 *******************************************************************************
 ### What is the origin and full version number of your bootloader (GRUB2 or systemd-boot or other)?
